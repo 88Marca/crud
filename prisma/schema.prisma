@@ -1,0 +1,23 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = "mysql://root:8284@localhost:3306/Crud"
+}
+
+
+model Company {
+  id             Int        @id @default(autoincrement())
+  name        String
+  phone      String?
+  latitud     Decimal?       @db.Decimal(9, 6)
+  longitud    Decimal?        @db.Decimal(9, 6)
+   
+  createdAt DateTime @default(now())
+}
+
