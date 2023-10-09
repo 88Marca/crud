@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import React, { useState } from 'react';
+import React from 'react';
 import Axios from 'axios';
 
 const prisma = new PrismaClient();
@@ -10,7 +10,7 @@ async function handler(req, res) {
   }
 
   try {
-    const { name, phone } = req.body; 
+    const { name, phone, longitud, latitud } = req.body; 
 
     // No es necesario conectar explícitamente con Prisma, ya que Prisma administra la conexión automáticamente.
 
@@ -18,7 +18,8 @@ async function handler(req, res) {
       data: {
         name: name,
         phone: phone,
-       
+        longitud: longitud, // Asume que `location` es un objeto con detalles de ubicación
+        latitud:latitud
       },
     });
 
@@ -29,7 +30,7 @@ async function handler(req, res) {
     console.error(error);
     res.status(500).json({ error: 'Error interno' });
   } finally {
-    await prisma.$disconnect(); // Cierra la conexión con la base de datos después de la operación.
+    await prisma.$disconnect(); 
   }
 }
 

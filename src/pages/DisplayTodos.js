@@ -24,12 +24,17 @@ const DisplayTodos = ({ company }) => {
   const [visibility, setVisibility] = useState(false);
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+  const [latitud, setLatitud] = useState(0);
+  const [longitud, setLongitud] = useState(0);
   const [companyId, setCompanyId] = useState(''); // Agregado el estado para 'companyId'
 
-  const editForm = (name, phone, companyId) => {
+  const editForm = (name, phone, latitud, longitud, companyId) => {
     setVisibility(!visibility);
     setName(name);
     setPhone(phone);
+    setLatitud(latitud)
+    setLongitud(longitud)
+
     setCompanyId(companyId); // Actualiza el 'companyId' en el estado
   };
 
@@ -37,9 +42,10 @@ const DisplayTodos = ({ company }) => {
     const companyObj = {
       name: name,
       phone: phone,
+      latitud: latitud,
+      longitud: longitud
        
     };
-    console.log(companyObj);
     await Axios.put(`/api/updateTodo?id=${companyId}`, companyObj).then(() => {
       window.location.reload(false);
     });
@@ -58,7 +64,11 @@ const DisplayTodos = ({ company }) => {
           <thead>
             <tr>
               <th scope="col">Name</th>
-              <th scope="col">Phone</th> 
+              <th scope="col">Phone</th>
+              <th scope="col">Latitud</th> 
+              <th scope="col">Longitud</th> 
+
+
               <th scope="col">Options</th>
             
 
@@ -70,6 +80,10 @@ const DisplayTodos = ({ company }) => {
                 <tr key={element.id}>
                   <td>{element.name}</td>
                   <td>{element.phone}</td>
+                  <td>{element.latitud}</td>
+                  <td>{element.longitud}</td>
+
+                  
                   <td>
                     <button className="btn btn-danger" onClick={() => deleteTodo(element.id)}>Delete</button>
                     <button className="btn btn-primary" onClick={() => editForm(element.name, element.phone, element.email, element.id)}>Edit</button>
@@ -117,3 +131,10 @@ const DisplayTodos = ({ company }) => {
 };
 
 export default DisplayTodos;
+
+
+/* 
+ */
+
+/*id: 'google-map-script',
+    googleMapsApiKey: 'AIzaSyCDgYXOkWNlwfBEVqaR1lMqKq54rC1p9xo'      */

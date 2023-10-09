@@ -15,9 +15,8 @@ model Company {
   id             Int        @id @default(autoincrement())
   name        String
   phone      String?
-  latitud     Decimal?       @db.Decimal(9, 6)
-  longitud    Decimal?        @db.Decimal(9, 6)
-   
+  latitud     Decimal?       @db.Decimal(24, 21)
+  longitud    Decimal?        @db.Decimal(24, 21)
   createdAt DateTime @default(now())
 }
 
